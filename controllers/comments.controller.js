@@ -5,18 +5,27 @@ class CommentsController {
 
   getComments = async (req, res) => {
     try {
-      const { postId } = req.body;
-      if (typeof (postId / 1) === NaN) throw new Error();
-
+      const { postId } = req.params;
+      if (typeof (postId / 1) === NaN || postId.search(/\s/) != -1) throw new Error('postId를 잘못 입력하였습니다.');
       // 서비스 계층에 구현된 getComments 로직을 실행합니다.
-      const allCommnets = await this.commentsService.getComments(postId);
+      const allComments = await this.commentsService.getComments(postId);
 
       return res.status(200).send(allComments);
     } catch (error) {
       console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
-      return res.status(400).send({
-        errorMessage: 'postId가 올바르지 않습니다.',
-      });
+      return res.status(400).send({ errorMessage: e.message });
+    }
+  };
+
+  createComment = async (req, res) => {
+    try {
+      const { postId } = req.params;
+      if (typeof (postId / 1) === NaN || postId.search(/\s/) != -1) throw new Error('postId를 잘못 입력하였습니다.');
+      const { comment } = req.body;
+      if (!comment || comment.search(/\s/) === comment.length) throw new Error('댓글을 입력해주세요.');
+    } catch (e) {
+      console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+      return res.status(400).send({ errorMessage: e.message });
     }
   };
 }
