@@ -22,7 +22,6 @@ class PostsRepository {  // 작성
   
 
   deletePost = async (postId, id) => { // 삭제
-    console.log("repo: ", postId);
     const deletePost = Posts.destroy({
       where: { id: postId, userId: id },
     });

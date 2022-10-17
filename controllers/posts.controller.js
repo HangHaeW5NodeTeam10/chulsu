@@ -3,11 +3,10 @@ const PostsService = require("../services/posts.service");
 class PostsController {
   PostsService = new PostsService();
 
- 
-  createPost = async (req, res, next) => { // 게시판 POST
+  createPost = async (req, res, next) => { // 게시판 POST 
 
-    const { id } = res.locals.user;
-    const { title, content } = req.body;
+    const { id } = res.locals.user; // id값
+    const { title, content } = req.body; 
 
    await this.PostsService.createPost( id, title, content );
 
@@ -17,7 +16,7 @@ class PostsController {
 
 
 updatepost = async (req, res, next) => { // 게시판 PUT
-  const { title, content } = req.body;
+  const { title, content } = req.body; 
   const { postId } = req.params;
   const { id } = res.locals.user;
 

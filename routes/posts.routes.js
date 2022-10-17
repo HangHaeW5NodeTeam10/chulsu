@@ -11,8 +11,8 @@ const postsController = new PostsController();
 
 // router.get('/', postsController.getPosts);
 // router.get('/:postId', postsController.getOnePost);
-router.post('/', authMiddleware, postsController.createPost);
-// router.put('/', postsController.updatePost);
-// router.delete('/', postsController.deletePost);
+router.post('/', postsController.createPost);
+router.put("/:postId", authMiddleware, postsController.updatepost);
+router.delete("/:postId", authMiddleware, postsController.deletepost);
 
 module.exports = router;

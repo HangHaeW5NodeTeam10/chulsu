@@ -13,6 +13,7 @@ createPost = async (id, title, content) => {  // 게시글 POST
     content
   );
 
+  console.log(id, title, content);
   return {
     userId: createPostData.id,
     title: createPostData.title,
@@ -50,7 +51,7 @@ deletePost = async (postId, id) => { // 게시글 DELETE
     };
   } catch (e) {
     return {
-      message: "게시글 작성에 실패했습니다",
+      message: "게시글 삭제에 실패했습니다",
       status: 400,
     };
   }
