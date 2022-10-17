@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const router = Router();
-
+const authMiddleware = require('../middlewares/authMiddleware');
 const CommentsController = require('../controllers/comments.controller');
 const commentsController = new CommentsController();
 
@@ -9,6 +9,6 @@ const commentsController = new CommentsController();
 // URL 과 컨트롤러 사이에 미들웨어를 넣을 수도 있다.
 
 router.get('/:postId', commentsController.getComments);
-router.post('/:postId', commentsController.createComment);
+router.post('/:postId', authMiddleware, commentsController.createComment);
 
 module.exports = router;

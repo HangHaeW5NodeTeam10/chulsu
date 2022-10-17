@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-
+const { Users, Posts } = require('../models');
+const authMiddleware = require('../middlewares/authMiddleware');
 const PostsController = require('../controllers/posts.controller');
 const postsController = new PostsController();
 
@@ -13,5 +14,61 @@ const postsController = new PostsController();
 // router.post('/', postsController.createPost);
 // router.put('/', postsController.updatePost);
 // router.delete('/', postsController.deletePost);
+
+// 게시글 작성. 로그인 필요 => authMiddleware 경유
+router.post('/', authMiddleware, async (req, res) => {
+  try {
+    const { title, content } = req.body;
+    if (!title) return res.status(400).send({ errorMessage: 'title is required' });
+    if (!content) return res.status(400).send({ errorMessage: 'content is required' });
+
+    const { user } = res.locals;
+    await Posts.create({ userId: user.userId, title, content });
+    return res.status(200).send({ msg: '게시글이 작성되었습니다.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ errorMessage: err.message });
+  }
+});
+
+// 전체 게시글 목록
+router.get('/', async (req, res) => {
+  try {
+    const posts = await Posts.findAll({
+      attributes: { exclude: ['content'] },
+      include: [
+        {
+          model: Users,
+          attributes: ['nickname'],
+        },
+      ],
+      order: [['createdAt', 'DESC']],
+    });
+    return res.send({ posts });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send({ errorMessage: err.message });
+  }
+});
+
+// 특정 게시글 상세조회
+router.get('/:postId', async (req, res, next) => {
+  const { postId } = req.params;
+  try {
+    const post = await Posts.findByPk(postId, {
+      include: [
+        {
+          model: Users,
+          attributes: ['nickname'],
+        },
+      ],
+    });
+
+    return res.send({ post });
+  } catch (error) {
+    console.error(err);
+    return res.status(500).send({ errorMessage: err.message });
+  }
+});
 
 module.exports = router;

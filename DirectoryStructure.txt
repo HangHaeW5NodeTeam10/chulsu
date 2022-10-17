@@ -44,3 +44,7 @@ DROP TABLE [테이블이름]
 USE db_test_NW3;
 INSERT INTO Users (nickname, password) VALUES
     ('test1', 'pw11'), ('test2', 'pw11');
+
+USE db_test_NodeW3;
+INSERT INTO Posts (title, content, userId) VALUES
+    ('게시글 테스트용 제목', '게시글 테스트용 데이터 집어넣기', '1')
