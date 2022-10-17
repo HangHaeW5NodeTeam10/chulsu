@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = Router();
+const authMiddleware = require("../middlewares/authMiddleware")
 
 const PostsController = require('../controllers/posts.controller');
 const postsController = new PostsController();
@@ -10,7 +11,7 @@ const postsController = new PostsController();
 
 // router.get('/', postsController.getPosts);
 // router.get('/:postId', postsController.getOnePost);
-// router.post('/', postsController.createPost);
+router.post('/', authMiddleware, postsController.createPost);
 // router.put('/', postsController.updatePost);
 // router.delete('/', postsController.deletePost);
 
