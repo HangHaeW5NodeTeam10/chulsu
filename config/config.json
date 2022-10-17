@@ -1,10 +1,10 @@
 {
   "development": {
-    "username": "",
-    "password": "",
-    "database": "",
-    "host": "",
-    "dialect": ""
+    "username": "admin",
+    "password": "adminmin",
+    "database": "db_test_NW3",
+    "host": "express-database.c0ie3ek74qz9.ap-northeast-2.rds.amazonaws.com",
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
