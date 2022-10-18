@@ -1,5 +1,4 @@
 const CommentsRepository = require('../repositories/comments.repository');
-const _ = require('lodash');
 
 class CommentsService {
   commentsRepository = new CommentsRepository();
@@ -21,19 +20,14 @@ class CommentsService {
       return b.createdAt - a.createdAt;
     });
 
-    // _.flatten(allComments, true);
-    // 이게 undefined네... allComments.User도 마찬가지..
-    console.log(allComments.Users);
     allComments.map((comment) => {
       return {
-        commentId: allComments.commentId,
-        postId: allComments.postId,
-        // 모델 이름을 다 Users로 해줬는데 왜 여긴 User일까...?
-        // nickname 어떻게 가져와야 하지..?
-        // nickname: allComments.User.dataValues.nickname,
-        comment: allComments.comment,
-        createdAt: allComments.createdAt,
-        updatedAt: allComments.updatedAt,
+        commentId: comment.commentId,
+        postId: comment.postId,
+        nickname: comment.User.nickname,
+        comment: comment.comment,
+        createdAt: comment.createdAt,
+        updatedAt: comment.updatedAt,
       };
     });
 
