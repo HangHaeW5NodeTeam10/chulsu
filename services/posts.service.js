@@ -1,12 +1,12 @@
 const PostRepository = require('../repositories/posts.repository');
 
 class PostService {
-  postRepository = new PostRepository();
+  PostRepository = new PostRepository();
 
   //게시글전체조회
   findAllPost = async () => {
     // 저장소(Repository)에게 데이터를 요청합니다.
-    const allPost = await this.postRepository.findAllPost();
+    const allPost = await this.PostRepository.findAllPost();
 
     // 호출한 Post들을 가장 최신 게시글 부터 정렬합니다.
     allPost.sort((a, b) => {
@@ -29,7 +29,7 @@ class PostService {
   findOnePost = async (postId) => {
     // 저장소(Repository)에게 데이터를 요청합니다.
 
-    const postsOne = await this.postRepository.findOnePost(postId);
+    const postsOne = await this.PostRepository.findOnePost(postId);
 
     // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
     return {
@@ -45,7 +45,7 @@ class PostService {
   //게시글작성
   createPost = async (userId, nickname, title, content, like) => {
     // 저장소(Repository)에게 데이터를 요청합니다.
-    const createPostData = await this.postRepository.createPost(userId, nickname, title, content, like);
+    const createPostData = await this.PostRepository.createPost(userId, nickname, title, content, like);
 
     // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
     return {
@@ -59,10 +59,10 @@ class PostService {
   };
 
   updatePost = async (postId, title, content, id) => {
-    // 게시글 PUT
+    // 게시글 수정
     console.log(postId, title, content, id);
     try {
-      await this.postsRepository.updatePost(postId, title, content, id);
+      await this.PostsRepository.updatePost(postId, title, content, id);
       return {
         id: updatePost.postId,
         title: updatePost.title,
@@ -80,7 +80,7 @@ class PostService {
   deletePost = async (postId, id) => {
     // 게시글 DELETE
     try {
-      const deletePost = await this.postsRepository.deletePost(postId, id);
+      const deletePost = await this.PostsRepository.deletePost(postId, id);
       return {
         id: deletePost.postId,
       };
