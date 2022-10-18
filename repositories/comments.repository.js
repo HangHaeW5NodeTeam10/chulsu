@@ -68,6 +68,23 @@ class CommentsRepository {
       return { errorMessage: error.message };
     }
   };
+
+  deleteComment = async (commentId, userId) => {
+    try {
+      // ORM인 Sequelize에서 Comments 모델의 findByPk 메소드를 사용해 commentId 존재 여부 확인
+      const existComment = await Comments.findByPk(commentId);
+      if (!existComment) throw new Error('존재하지 않는 댓글입니다.');
+      // userId 일치 여부 확인
+      if (existComment.userId !== userId) throw new Error('댓글 작성자만 댓글을 삭제할 수 있습니다.');
+      // ORM인 Sequelize에서 Comments 모델의 delete 메소드를 사용해 데이터 삭제 요청
+      await Comments.destroy({ where: { commentId } });
+
+      return { message: '댓글이 삭제되었습니다.' };
+    } catch (error) {
+      console.error(error);
+      return { errorMessage: error.message };
+    }
+  };
 }
 
 module.exports = CommentsRepository;

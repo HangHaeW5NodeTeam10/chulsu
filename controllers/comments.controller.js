@@ -52,6 +52,23 @@ class CommentsController {
       return res.status(400).send({ errorMessage: error.message });
     }
   };
+
+  deleteComment = async (req, res) => {
+    try {
+      const { commentId } = req.params;
+      // 유효성 검증은 더 추가해야 할 것 같다. 근데 이건 일단 분리한 다음에..
+      if (typeof (commentId / 1) === NaN || commentId.search(/\s/) != -1) throw new Error('commentId를 잘못 입력하였습니다.');
+
+      // 서비스 계층에 구현된 getComments 로직을 실행합니다.
+      const { user } = res.locals;
+      const deleteResult = await this.commentsService.deleteComment(commentId, user.userId);
+      if (deleteResult.message) res.status(200).send(deleteResult);
+      else res.status(400).send(deleteResult);
+    } catch (error) {
+      console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
+      return res.status(400).send({ errorMessage: error.message });
+    }
+  };
 }
 
 module.exports = CommentsController;

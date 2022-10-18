@@ -45,6 +45,13 @@ class CommentsService {
 
     return updateResult;
   };
+
+  deleteComment = async (commentId, userId) => {
+    // 저장소(Repository)에게 데이터를 요청합니다.
+    const deleteResult = await this.commentsRepository.deleteComment(commentId, userId);
+
+    return deleteResult;
+  };
 }
 
 module.exports = CommentsService;
