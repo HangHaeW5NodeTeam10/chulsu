@@ -3,7 +3,7 @@ const router = Router();
 const authMiddleware = require('../middlewares/authMiddleware');
 
 const PostsController = require('../controllers/posts.controller');
-const authMiddleware = require('../middlewares/authMiddleware');
+
 const postsController = new PostsController();
 
 // router 부분은 실제로 어떤 로직이 수행되는지는 상관하지 않고,
