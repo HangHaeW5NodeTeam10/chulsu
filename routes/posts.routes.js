@@ -1,9 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const authMiddleware = require('../middlewares/authMiddleware');
 
 const PostsController = require('../controllers/posts.controller');
-
+const authMiddleware = require('../middlewares/authMiddleware');
 const postsController = new PostsController();
 
 // router 부분은 실제로 어떤 로직이 수행되는지는 상관하지 않고,
@@ -15,7 +14,5 @@ router.get('/:postId', postsController.getOnePosts);
 router.post('/', authMiddleware, postsController.createPost);
 router.put('/:postId', authMiddleware, postsController.updatePost);
 router.delete('/:postId', authMiddleware, postsController.deletePost);
-// router.put('/', postsController.updatePost);
-// router.delete('/', postsController.deletePost);
 
 module.exports = router;

@@ -10,9 +10,9 @@ class PostRepository {
   };
   //게시글 상세조회
   findOnePost = async (postId) => {
-    const PostsOne = await Posts.findByPk(postId);
+    const postsOne = await Posts.findByPk(postId);
 
-    return PostsOne;
+    return postsOne;
   };
   //게시글 작성
   createPost = async (userId, nickname, title, content, like) => {
@@ -22,16 +22,16 @@ class PostRepository {
     return createPostData;
   };
 
-  updatePost = async (postId, title, content, id) => {
+  updatePost = async (postId, title, content, userId) => {
     // 수정
-    const updatePost = Posts.update({ title, content }, { where: { id: postId, userId: id } });
+    const updatePost = Posts.update({ title, content }, { where: { postId, userId } });
     return updatePost;
   };
 
-  deletePost = async (postId, id) => {
+  deletePost = async (postId, userId) => {
     // 삭제
     const deletePost = Posts.destroy({
-      where: { id: postId, userId: id },
+      where: { postId, userId },
     });
     return deletePost;
   };
