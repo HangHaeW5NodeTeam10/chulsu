@@ -57,6 +57,40 @@ class PostService {
       updatedAt: createPostData.updatedAt,
     };
   };
+
+  updatePost = async (postId, title, content, id) => {
+    // 게시글 PUT
+    console.log(postId, title, content, id);
+    try {
+      await this.postsRepository.updatePost(postId, title, content, id);
+      return {
+        id: updatePost.postId,
+        title: updatePost.title,
+        content: updatePost.content,
+        userId: updatePost.id,
+      };
+    } catch (e) {
+      return {
+        message: '게시글 수정에 실패했습니다',
+        status: 400,
+      };
+    }
+  };
+
+  deletePost = async (postId, id) => {
+    // 게시글 DELETE
+    try {
+      const deletePost = await this.postsRepository.deletePost(postId, id);
+      return {
+        id: deletePost.postId,
+      };
+    } catch (e) {
+      return {
+        message: '게시글 삭제에 실패했습니다',
+        status: 400,
+      };
+    }
+  };
 }
 
 module.exports = PostService;

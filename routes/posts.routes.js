@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const router = Router();
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const PostsController = require('../controllers/posts.controller');
 const authMiddleware = require('../middlewares/authMiddleware');
@@ -12,6 +13,8 @@ const postsController = new PostsController();
 router.get('/', postsController.getPosts);
 router.get('/:postId', postsController.getOnePosts);
 router.post('/', authMiddleware, postsController.createPost);
+router.put('/:postId', authMiddleware, postsController.updatePost);
+router.delete('/:postId', authMiddleware, postsController.deletePost);
 // router.put('/', postsController.updatePost);
 // router.delete('/', postsController.deletePost);
 
