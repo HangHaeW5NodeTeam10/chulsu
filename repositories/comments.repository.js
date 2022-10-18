@@ -4,21 +4,27 @@ const { Users, Posts, Comments } = require('../models');
 
 class CommentsRepository {
   getComments = async (postId) => {
-    // ORM인 Sequelize에서 Posts 모델의 findByPk 메소드를 사용해 PostId 존재 여부 확인
-    // const existPost = await Posts.findByPk(postId);
-    // if (!existPost) throw new Error('존재하지 않는 포스트입니다. ');
+    try {
+      // ORM인 Sequelize에서 Posts 모델의 findByPk 메소드를 사용해 PostId 존재 여부 확인
+      const existPost = await Posts.findByPk(postId);
 
-    // ORM인 Sequelize에서 Comments 모델의 findAll 메소드를 사용해 전체 댓글 가져오기
-    const comments = await Comments.findAll({
-      where: { postId },
-      include: [
-        {
-          model: Users,
-          attributes: ['nickname'],
-        },
-      ],
-    });
-    return comments;
+      if (!existPost) throw new Error('존재하지 않는 포스트입니다. ');
+
+      // ORM인 Sequelize에서 Comments 모델의 findAll 메소드를 사용해 전체 댓글 가져오기
+      const allComments = await Comments.findAll({
+        where: { postId },
+        include: [
+          {
+            model: Users,
+            attributes: ['nickname'],
+          },
+        ],
+      });
+      return allComments;
+    } catch (error) {
+      console.error(error);
+      return { errorMessage: error.message };
+    }
   };
 
   createComment = async (postId, userId, comment) => {

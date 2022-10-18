@@ -10,6 +10,8 @@ class CommentsController {
       // 서비스 계층에 구현된 getComments 로직을 실행합니다.
       const allComments = await this.commentsService.getComments(postId);
 
+      if (allComments.errorMessage) throw new Error(allComments.errorMessage);
+
       return res.status(200).send(allComments);
     } catch (error) {
       console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
@@ -22,11 +24,14 @@ class CommentsController {
       const { postId } = req.params;
       if (typeof (postId / 1) === NaN || postId.search(/\s/) != -1) throw new Error('postId를 잘못 입력하였습니다.');
       const { comment } = req.body;
-      // if (!comment || comment.search(/\s/) === comment.length) throw new Error('댓글을 입력해주세요.');
+      if (!comment || comment.search(/\s/) === comment.length) throw new Error('댓글을 입력해주세요.');
 
       // 서비스 계층에 구현된 getComments 로직을 실행합니다.
       const { user } = res.locals;
       const newComment = await this.commentsService.createComment(postId, user.userId, comment);
+
+      if (newComment.errorMessage) throw new Error(newComment.errorMessage);
+
       return res.status(200).send(newComment);
     } catch (error) {
       console.log(`${req.method} ${req.originalUrl} : ${error.message}`);
@@ -45,6 +50,7 @@ class CommentsController {
       // 서비스 계층에 구현된 getComments 로직을 실행합니다.
       const { user } = res.locals;
       const updateResult = await this.commentsService.updateComment(commentId, user.userId, comment);
+
       if (updateResult.message) res.status(200).send(updateResult);
       else res.status(400).send(updateResult);
     } catch (error) {
@@ -62,6 +68,7 @@ class CommentsController {
       // 서비스 계층에 구현된 getComments 로직을 실행합니다.
       const { user } = res.locals;
       const deleteResult = await this.commentsService.deleteComment(commentId, user.userId);
+
       if (deleteResult.message) res.status(200).send(deleteResult);
       else res.status(400).send(deleteResult);
     } catch (error) {
