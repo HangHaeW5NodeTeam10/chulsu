@@ -10,5 +10,6 @@ const commentsController = new CommentsController();
 
 router.get('/:postId', commentsController.getComments);
 router.post('/:postId', authMiddleware, commentsController.createComment);
+router.put('/:commentId', authMiddleware, commentsController.updateComment);
 
 module.exports = router;

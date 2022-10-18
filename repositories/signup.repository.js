@@ -5,7 +5,6 @@ const { Users } = require('../models');
 class SignupRepository {
   signupMember = async (nickname, password) => {
     // ORM인 Sequelize에서 Users 모델의 findOne 메소드를 사용해 중복 여부 확인
-
     const existName = await Users.findOne({ where: { nickname } });
     if (existName) {
       return { errorMessage: '중복된 닉네임입니다.' };
