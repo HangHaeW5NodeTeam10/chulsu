@@ -1,10 +1,10 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Posts extends Model {
+  class Likes extends Model {
     static associate(models) {
       // define association here
-      this.hasMany(models.Comments, {
+      this.belongsTo(models.Posts, {
         foreignKey: 'postId',
         sourceKey: 'postId',
       });
@@ -12,15 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'userId',
         sourceKey: 'userId',
       });
-      this.hasMany(models.Likes, {
-        foreignKey: 'postId',
-        sourceKey: 'postId',
-      });
     }
   }
-  Posts.init(
+  Likes.init(
     {
-      postId: {
+      likesId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -34,34 +30,20 @@ module.exports = (sequelize, DataTypes) => {
           key: 'userId',
         },
       },
-      title: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      content: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      likesCount: {
+      postId: {
         allowNull: false,
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-      },
-      createdAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-      },
-      updatedAt: {
-        allowNull: false,
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        references: {
+          model: 'Posts',
+          key: 'postId',
+        },
       },
     },
     {
       sequelize,
-      modelName: 'Posts',
+      modelName: 'Likes',
+      timestamps: false,
     }
   );
-  return Posts;
+  return Likes;
 };
