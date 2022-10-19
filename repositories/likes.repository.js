@@ -1,17 +1,36 @@
 const { Likes } = require('../models');
 const { Posts } = require('../models');
+const { Users } = require('../models');
 
 class LikeRepository {
   
    //게시글 좋아요 조회
-   findAllPost = async (userId) => {
-    const mylike = await Likes.findAll({ where: {userId}});
-
+   findAllLike = async (userId) => {
+    const mylike = await Likes.findAll(userId);
+    
     return mylike
     }
-    mylikepost = async () => {
-        await Posts.findAll({where: {postId}, order:[['like','DESC']]})
-    } 
+
+    findAllPost = async ({mylikepostId}) => {
+
+    return  await Posts.findAll({where: {postId: mylikepostId},
+        include: [{model: Users,}],
+        order:[['likesCount','DESC']]})    
+    }
+
+
+
+///원래코드
+    // findAllPost = async (userId) => {
+    //     const mylike = await Likes.findAll({ where: { userId },
+    //         include: [{ model: Posts, 
+    //         },], });
+    
+    //     return mylike;
+    //   };
+
+
+
 
    //게시글 좋아요
    

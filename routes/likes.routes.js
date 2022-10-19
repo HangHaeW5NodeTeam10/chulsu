@@ -12,6 +12,6 @@ const likesController = new LikesController();
 
 router.get('/like',authMiddleware,likesController.getLikePosts)
 router.put('/:postId/like', authMiddleware,likesController.updateLike)
-// sssssssssssssssssss
+
 
 module.exports = router;

@@ -21,15 +21,13 @@ class PostRepository {
 
     return createPostData;
   }
-
-  updatePost = async (postId, title, content, userId) => {
     // 수정
+  updatePost = async (postId, title, content, userId) => {
     const updatePost = Posts.update({ title, content }, { where: { postId,userId} });
     return updatePost;
   };
-
-  deletePost = async (postId, userId) => {
     // 삭제
+  deletePost = async (postId, userId) => {
     const deletePost = Posts.destroy({
       where: { postId, userId},
     });
