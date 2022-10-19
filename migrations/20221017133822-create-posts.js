@@ -4,34 +4,41 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Posts', {
       postId: {
-        primaryKey: true,
         allowNull: false,
         autoIncrement: true,
+        primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userId: { 
-        allowNull: false, 
+      userId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
-      },
-      nickname: {
-        type: Sequelize.STRING, //필요한가..?
+        references: {
+          model: 'Users',
+          key: 'userId',
+        },
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      like: {
+      likesCount: {
+        allowNull: false,
         type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW,
       },
     });
   },

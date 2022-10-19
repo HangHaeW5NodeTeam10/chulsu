@@ -1,7 +1,6 @@
 {
   "name": "prac_architecture_nodew3",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
@@ -23,5 +22,15 @@
   "devDependencies": {
     "nodemon": "^2.0.20",
     "sequelize-cli": "^6.5.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HangHaeW5NodeTeam10/chulsu.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/HangHaeW5NodeTeam10/chulsu/issues"
+  },
+  "homepage": "https://github.com/HangHaeW5NodeTeam10/chulsu#readme",
+  "description": ""
 }
