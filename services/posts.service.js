@@ -44,9 +44,11 @@ class PostService {
   };
 
   //게시글작성
-  createPost = async (userId, nickname, title, content, like) => {
+  createPost = async (userId, nickname, title, content) => {
+    console.log('여긴 서비스');
+    console.log(userId, nickname, title, content);
     // 저장소(Repository)에게 데이터를 요청합니다.
-    const createPostData = await this.postRepository.createPost(userId, nickname, title, content, like);
+    const createPostData = await this.postRepository.createPost(userId, nickname, title, content);
 
     // 비즈니스 로직을 수행한 후 사용자에게 보여줄 데이터를 가공합니다.
     return {
