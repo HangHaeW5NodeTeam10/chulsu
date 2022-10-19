@@ -21,7 +21,7 @@ class PostService {
         title: post.title,
         createdAt: post.createdAt,
         updatedAt: post.updatedAt,
-        likesCount: 0,
+        likesCount: post.likesCount,
       };
     });
   };
