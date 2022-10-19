@@ -17,7 +17,8 @@ class PostsController {
   }
 //게시글 작성
   createPost = async (req, res, next) => {
-    const {userId, nickname, title, content, like} = req.body; 
+    const {userId, nickname} = res.locals.user // id값
+    const {title, content} = req.body; 
 
     // 서비스 계층에 구현된 createPost 로직을 실행합니다.
     const createPostData = await this.postService.createPost(userId, nickname, title, content, like);

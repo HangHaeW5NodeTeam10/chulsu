@@ -7,6 +7,7 @@ class PostService {
   findAllPost = async () => { 
     // 저장소(Repository)에게 데이터를 요청합니다.
     const allPost = await this.postRepository.findAllPost();
+    
 
     // 호출한 Post들을 가장 최신 게시글 부터 정렬합니다.
     allPost.sort((a, b) => {
@@ -20,7 +21,8 @@ class PostService {
         nickname: post.nickname,
         title: post.title,
         createdAt: post.createdAt,
-        updatedAt: post.updatedAt
+        updatedAt: post.updatedAt,
+        likesCount: 0
       }
     });
   }
@@ -40,7 +42,6 @@ class PostService {
             createdAt: postsOne.createdAt,
             updatedAt: postsOne.updatedAt
           }
-    
       }
     
   //게시글작성
