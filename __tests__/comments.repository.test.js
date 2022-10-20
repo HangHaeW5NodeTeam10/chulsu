@@ -52,7 +52,7 @@ test('findTheComment 메소드에 존재하는 commentId를 전달하면 그 com
   expect(result).toEqual(comment);
 });
 
-test('CommentsRepository 의 findThePost 메소드에 존재하지 않는 commentId를 전달하면 undefined가 리턴된다', async () => {
+test('findTheComment 메소드에 존재하지 않는 commentId를 전달하면 undefined가 리턴된다', async () => {
   let commentId = 1;
   const result = await commentsRepository.findTheComment(commentId);
   expect(Comments.findByPk).toBeCalledWith(commentId);
