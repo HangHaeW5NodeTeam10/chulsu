@@ -39,18 +39,6 @@ class CommentsRepository {
         comment,
       });
 
-      // 업데이트할 때 변경 적용된 데이터 변수에 할당하도록 하는 옵션 있었는데.. 못 찾겠다.. ㅠㅠ
-      // 근데 그거 create에도 되려나?
-      // const newComment = await Comments.findOne({
-      //   where: { commentId: comment.commentId },
-      //   include: [
-      //     {
-      //       model: Users,
-      //       attributes: ['nickname'],
-      //     },
-      //   ],
-      // });
-
       return newcomment;
     } catch (error) {
       console.error(error);

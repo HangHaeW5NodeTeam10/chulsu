@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
 
   try {
     const { userId } = jwt.verify(authToken, SECRET_KEY);
-    Users.findByPk(userId).then((user) => {
+    Users.findByPk(userId).then((user) =>  {
       res.locals.user = user;
       next();
     });

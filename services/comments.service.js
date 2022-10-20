@@ -1,5 +1,8 @@
 const CommentsRepository = require('../repositories/comments.repository');
+<<<<<<< HEAD
 const _ = require('lodash');
+=======
+>>>>>>> main
 
 class CommentsService {
   commentsRepository = new CommentsRepository();
@@ -21,6 +24,7 @@ class CommentsService {
       return b.createdAt - a.createdAt;
     });
 
+<<<<<<< HEAD
     // _.flatten(allComments, true);
     // 이게 undefined네... allComments.User도 마찬가지..
     console.log(allComments.Users);
@@ -34,6 +38,16 @@ class CommentsService {
         comment: allComments.comment,
         createdAt: allComments.createdAt,
         updatedAt: allComments.updatedAt,
+=======
+    allComments.map((comment) => {
+      return {
+        commentId: comment.commentId,
+        postId: comment.postId,
+        nickname: comment.User.nickname,
+        comment: comment.comment,
+        createdAt: comment.createdAt,
+        updatedAt: comment.updatedAt,
+>>>>>>> main
       };
     });
 

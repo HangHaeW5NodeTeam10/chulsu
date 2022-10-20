@@ -3,7 +3,8 @@ const Joi = require('joi');
 
 const loginSchema = Joi.object({
   nickname: Joi.string().required(),
-  password: Joi.string().required(),
+  password: Joi.string().required(), 
+
 });
 
 class LoginController {
