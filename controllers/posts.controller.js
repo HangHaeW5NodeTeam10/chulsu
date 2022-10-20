@@ -13,7 +13,8 @@ class PostsController {
     const postId = req.params.postId;
     const postsOne = await this.postService.findOnePost(postId);
 
-    res.status(200).json({ data: postsOne });
+    // res.status(200).json({ data: postsOne });
+    res.status(200).json(postsOne);
   };
   //게시글 작성
   createPost = async (req, res, next) => {
