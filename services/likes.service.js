@@ -8,7 +8,7 @@ class LikeService {
     const mylike = await this.likeRepository.findAllPost(userId);
     const newMylike = await mylike.map((item) => {
       return {
-        user: item.userId,
+        mynickname: item.User.nickname,
         postId: item.Post.postId,
         author: item.Post.User.nickname,
         title: item.Post.title,
@@ -17,7 +17,6 @@ class LikeService {
         updatedAt: item.Post.updatedAt,
       };
     });
-    await newMylike.sort((a, b) => b.likesCount - a.likesCount);
     return newMylike;
     // return mylike;
   };

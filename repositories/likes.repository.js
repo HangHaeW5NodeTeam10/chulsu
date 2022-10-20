@@ -9,6 +9,10 @@ class LikeRepository {
         {
           model: Posts,
           include: [{ model: Users }],
+          order: [['likesCount', 'DESC']],
+        },
+        {
+          model: Users,
         },
       ],
     });
