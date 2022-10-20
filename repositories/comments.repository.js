@@ -3,19 +3,26 @@
 const { Users, Posts, Comments } = require('../models');
 
 class CommentsRepository {
+  constructor() {
+    this.Posts = Posts;
+    this.Comments = Comments;
+    this.Users = Users;
+  }
+
   findThePost = async (postId) => {
-    const existPost = await Posts.findByPk(postId);
+    const existPost = await this.Posts.findByPk(postId);
     return existPost;
   };
 
   findTheComment = async (commentId) => {
-    const existComment = await Comments.findByPk(commentId);
+    const existComment = await this.Comments.findByPk(commentId);
     return existComment;
   };
 
   getComments = async (postId) => {
-    const allComments = await Comments.findAll({
+    const allComments = await this.Comments.findAll({
       where: { postId },
+      order: [['createdAt', 'DESC']],
       include: [
         {
           model: Users,
@@ -27,7 +34,7 @@ class CommentsRepository {
   };
 
   createComment = async (postId, userId, comment) => {
-    const newComment = await Comments.create({
+    const newComment = await this.Comments.create({
       postId,
       userId,
       comment,
@@ -36,12 +43,12 @@ class CommentsRepository {
   };
 
   updateComment = async (commentId, comment) => {
-    await Comments.update({ comment }, { where: { commentId } });
+    await this.Comments.update({ comment }, { where: { commentId } });
     return { message: '댓글이 수정되었습니다.' };
   };
 
   deleteComment = async (commentId) => {
-    await Comments.destroy({ where: { commentId } });
+    await this.Comments.destroy({ where: { commentId } });
     return { message: '댓글이 삭제되었습니다.' };
   };
 }

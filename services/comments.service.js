@@ -9,20 +9,16 @@ class CommentsService {
       if (!existPost) throw new Error('존재하지 않는 포스트입니다. ');
 
       const allComments = await this.commentsRepository.getComments(postId);
-      allComments
-        .sort((a, b) => {
-          return b.createdAt - a.createdAt;
-        })
-        .map((comment) => {
-          return {
-            commentId: comment.commentId,
-            postId: comment.postId,
-            nickname: comment.User.nickname,
-            comment: comment.comment,
-            createdAt: comment.createdAt,
-            updatedAt: comment.updatedAt,
-          };
-        });
+      allComments.map((comment) => {
+        return {
+          commentId: comment.commentId,
+          postId: comment.postId,
+          nickname: comment.User.nickname,
+          comment: comment.comment,
+          createdAt: comment.createdAt,
+          updatedAt: comment.updatedAt,
+        };
+      });
 
       return allComments;
     } catch (error) {

@@ -4,7 +4,11 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest"
+    "test": "NODE_ENV=test jest --forceExit",
+    "test:silent": "NODE_ENV=test jest --silent --forceExit",
+    "test:coverage": "NODE_ENV=test jest --coverage --forceExit",
+    "test:unit": "NODE_ENV=test jest test/unit --forceExit",
+    "test:integration": "NODE_ENV=test jest test/integration --forceExit"
   },
   "author": "",
   "license": "ISC",

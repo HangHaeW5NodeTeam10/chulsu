@@ -9,7 +9,9 @@ class SignupController {
 
   signupMember = async (req, res) => {
     const { nickname, password, confirmPassword } = req.body;
-    // 유효성 검사... 음...이건 미들웨어로 뺴는게 낫나...? 아님 서비스에서? 아님...?
+    console.log(req.body);
+
+    console.log(nickname, password, confirmPassword);
     if (password !== confirmPassword) {
       return res.status(400).send({
         errorMessage: '패스워드가 패스워드 확인란과 동일하지 않습니다.',
